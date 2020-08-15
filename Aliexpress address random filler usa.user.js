@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Aliexpress address random filler USA
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  Заполняет поля случайными адресными данными США на Алиэкспресс
 // @author       Andronio
 // @homepage     https://github.com/Andronio2/Aliexpress-address-random-filler-usa
@@ -91,13 +91,13 @@ let delayStep   = 200; //ms
                 if (currOblast.length == 0) return setTimeout(fillAddrFunc, 200);
 				currOblast[0].click();
 				currMode = 4;
-				return setTimeout(fillAddrFunc, 200);
+				return setTimeout(fillAddrFunc, 500);
 			case 4: //Ждем список областей, выбираем область
 				let allOblast = document.querySelectorAll('.selector-item')[0].querySelectorAll('.next-overlay-wrapper .next-menu-item');
 				if (allOblast.length == 0) return setTimeout(fillAddrFunc, 200);
-				allOblast[1 + getRandomInt(allOblast.length - 2)].click();
+				setTimeout(() => allOblast[getRandomInt(allOblast.length - 1)].click(), 500);
 				currMode = 5;
-				return setTimeout(fillAddrFunc, delayStep);
+				return setTimeout(fillAddrFunc, delayStep + 500);
 			case 5:
 				let currGorod = document.querySelectorAll('.selector-item .next-select em')[1];
 				currGorod.click();
@@ -106,9 +106,9 @@ let delayStep   = 200; //ms
 			case 6: //Ждем список городов, выбираем город
 				let allGorod = document.querySelectorAll('.selector-item')[1].querySelectorAll('.next-overlay-wrapper .next-menu-item');
 				if (allGorod.length == 0) return setTimeout(fillAddrFunc, 200);
-				allGorod[1 + getRandomInt(allGorod.length - 2)].click();
+				setTimeout(() => allGorod[getRandomInt(allGorod.length - 1)].click(), 1000);
 				currMode = 7;
-				return setTimeout(fillAddrFunc, delayStep);
+				return setTimeout(fillAddrFunc, delayStep + 1000);
 			case 7:
 				let phoneCode = document.getElementById('phoneCountry');
 				nativeInputValueSetter.call(phoneCode, myPhoneCode);
